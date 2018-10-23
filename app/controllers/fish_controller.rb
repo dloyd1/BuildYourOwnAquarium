@@ -1,11 +1,13 @@
 class FishController < ApplicationController
   before_action :find_fish, only: [:edit, :update]
+  after_action :fish_facts, only: [:create, :update]
 
   def index
     @fishies = Fish.all
   end
 
   def show
+
   end
 
   def new
@@ -15,10 +17,7 @@ class FishController < ApplicationController
   end
 
   def create
-    @facts = {"Bob"=> "yooooooooo", "Peter" => "hey", "Billy" => "waddup"}
     @fish = Fish.create(fish_params)
-    @fish.facts = @facts[@fish.species]
-    @fish.save
     redirect_to new_equipment_path
   end
 
@@ -29,7 +28,7 @@ class FishController < ApplicationController
 
   def update
     @fish.update(fish_params)
-    redirect_to aquarium_path(@fish.aquarium_id)
+    redirect_to aquarium_path(@fish)
   end
 
   private
@@ -41,4 +40,11 @@ class FishController < ApplicationController
   def find_fish
     @fish = Fish.find_by(id: params[:id])
   end
+
+  def fish_facts
+    @facts = {"Bob"=> "yooooooooo", "Peter" => "hey", "Billy" => "waddup"}
+    @fish.facts = @facts[@fish.species]
+    @fish.save
+  end
+  
 end

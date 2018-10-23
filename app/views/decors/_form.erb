@@ -1,0 +1,6 @@
+<%= form_for @decor do |f| %>
+  <%= f.label :style %>
+  <%= f.select(:style, @options)  %>
+  <%= f.hidden_field :aquarium_id, :value => @aquarium.id %>
+  <%= f.submit "Create" %>
+<% end %>

@@ -2,8 +2,4 @@
 
 <h2>Select Aquarium Size</h2>
 
-<%= form_for @aquarium do |f| %>
-  <%= f.label :gallons, "Gallons (10 or 55)" %>
-  <%= f.text_field :gallons  %>
-  <%= f.submit "Create" %>
-<% end %>
+<%= render 'form' %>

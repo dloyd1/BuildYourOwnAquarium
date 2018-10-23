@@ -1,7 +1,6 @@
 class AquariaController < ApplicationController
 
-  before_action :find_aquarium, only: [:edit, :update]
-
+  before_action :find_aquarium, only: [:show, :edit, :update]
 
   def show
     @aquarium = Aquarium.all.last
@@ -18,10 +17,12 @@ class AquariaController < ApplicationController
   end
 
   def edit
+
   end
 
   def update
-
+    @aquarium.update(aquarium_params)
+    redirect_to aquarium_path(@aquarium)
   end
 
   private

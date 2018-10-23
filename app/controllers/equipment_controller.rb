@@ -1,5 +1,6 @@
 class EquipmentController < ApplicationController
   before_action :find_equipment, only: [:show, :edit, :update]
+  after_action :equip_facts, only: [:create, :update]
 
   def index
     @equipment = Equipment.all
@@ -15,19 +16,18 @@ class EquipmentController < ApplicationController
   end
 
   def create
-    @facts = {"therm"=> "really cool bro", "filter" => "yeah this is awesome", "heater" => "keep fishies warm"}
     @equipment = Equipment.create(equipment_params)
-    @equipment.facts = @facts[@equipment.item]
-    @equipment.save
     redirect_to new_decor_path
   end
 
   def edit
-
+    @options = ["therm", "filter", "heater"]
+    @aquarium = Aquarium.all.last
   end
 
   def update
     @equipment.update(equipment_params)
+    redirect_to aquarium_path(@equipment)
   end
 
   private
@@ -38,6 +38,12 @@ class EquipmentController < ApplicationController
 
   def find_equipment
     @equipment = Equipment.find_by(id: params[:id])
+  end
+
+  def equip_facts
+      @facts = {"therm"=> "really cool bro", "filter" => "yeah this is awesome", "heater" => "keep fishies warm"}
+      @equipment.facts = @facts[@equipment.item]
+      @equipment.save
   end
 
 end

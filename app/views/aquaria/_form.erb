@@ -1,0 +1,5 @@
+<%= form_for @aquarium do |f| %>
+  <%= f.label :gallons, "Gallons (10 or 55)" %>
+  <%= f.number_field :gallons  %>
+  <%= f.submit "Create" %>
+<% end %>
